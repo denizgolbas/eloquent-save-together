@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "spatie/laravel-package-tools": "^1.16",
-        "illuminate/contracts": "^10.0||^11.0"
+        "illuminate/database": "^10.0||^11.0",
+        "illuminate/support": "^10.0||^11.0"
     },
     "require-dev": {
         "laravel/pint": "^1.14",
@@ -30,49 +30,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Denizgolbas\\EloquentSaveTogether\\": "src/",
-            "Denizgolbas\\EloquentSaveTogether\\Database\\Factories\\": "database/factories/"
+            "Denizgolbas\\EloquentSaveTogether\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Denizgolbas\\EloquentSaveTogether\\Tests\\": "tests/",
-            "Workbench\\App\\": "workbench/app/"
-        }
-    },
-    "scripts": {
-        "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-eloquent-save-together --ansi",
-        "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": [
-            "@composer run prepare",
-            "@php vendor/bin/testbench workbench:build --ansi"
-        ],
-        "start": [
-            "Composer\\Config::disableProcessTimeout",
-            "@composer run build",
-            "@php vendor/bin/testbench serve"
-        ],
-        "analyse": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Denizgolbas\\EloquentSaveTogether\\EloquentSaveTogetherServiceProvider"
-            ],
-            "aliases": {
-                "EloquentSaveTogether": "Denizgolbas\\EloquentSaveTogether\\Facades\\EloquentSaveTogether"
-            }
         }
     },
     "minimum-stability": "dev",
