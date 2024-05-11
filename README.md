@@ -23,13 +23,6 @@ You can install the package via composer:
 composer require denizgolbas/eloquent-save-together
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="eloquent-save-together-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
@@ -43,11 +36,6 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="eloquent-save-together-views"
-```
 
 ## Usage
 
