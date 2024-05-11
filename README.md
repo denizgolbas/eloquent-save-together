@@ -23,38 +23,11 @@ You can publish the config file with:
 php artisan vendor:publish --tag="eloquent-save-together-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-
 ## Usage
 
 ```php
-$eloquentSaveTogether = new Denizgolbas\EloquentSaveTogether();
-echo $eloquentSaveTogether->echoPhrase('Hello, Denizgolbas!');
+
 ```
-
-## Testing
-
-```bash
-composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 

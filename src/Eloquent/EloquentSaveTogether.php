@@ -145,8 +145,6 @@ trait EloquentSaveTogether
             {
                 $updateNeedNoDeleteOnes = array_filter($relation->pluck('id')->toArray() ?? []);
                 $this->{$key}()->whereNotIn('id', $updateNeedNoDeleteOnes)->delete();
-                // tüm kaydı silmek yerine idsi olan requestlerdeki kayıtları hariç tutmalı
-                // Bir delete arrayı oluşturup neyin silinip silinmeyeceği ayarlanmalı.
             }
         }
 
