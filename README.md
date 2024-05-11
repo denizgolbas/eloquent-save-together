@@ -1,3 +1,5 @@
+![logo.png](art/logo.png)
+
 # Eloquent SaveTogether
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/denizgolbas/eloquent-save-together.svg?style=flat-square)](https://packagist.org/packages/denizgolbas/eloquent-save-together)
@@ -6,14 +8,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/denizgolbas/eloquent-save-together.svg?style=flat-square)](https://packagist.org/packages/denizgolbas/eloquent-save-together)
 
 For Laravel Eloquent that makes it easy to save related models together.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/eloquent-save-together.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/eloquent-save-together)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
