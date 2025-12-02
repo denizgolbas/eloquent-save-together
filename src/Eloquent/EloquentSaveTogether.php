@@ -4,7 +4,12 @@ namespace Denizgolbas\EloquentSaveTogether\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -14,6 +19,7 @@ trait EloquentSaveTogether
 {
     protected array $togetherRequestKeys;
     protected array $relatedArray;
+    protected ?array $relationMappings = null;
 
     public function initializeHasTogether(): void
     {
@@ -51,11 +57,16 @@ trait EloquentSaveTogether
             if (method_exists(self::class, $rel))
             {
                 $requestKey = Str::snake($rel);
-                match (get_class($this->{$rel}()))
+                $relationClass = get_class($this->{$rel}());
+                $mappedClass = $this->getMappedRelationClass($relationClass);
+
+                match ($mappedClass)
                 {
                     HasOne::class,
-                    MorphTo::class => $this->fillOneRecord($datas, $requestKey, $rel),
-                    default        => $this->fillMultiRecord($datas, $requestKey, $rel)
+                    MorphTo::class,
+                    MorphOne::class,
+                    BelongsTo::class => $this->fillOneRecord($datas, $requestKey, $rel),
+                    default => $this->fillMultiRecord($datas, $requestKey, $rel)
                 };
             }
         }
@@ -63,7 +74,7 @@ trait EloquentSaveTogether
         return $this;
     }
 
-    public function saveTogether(): Collection
+    public function saveTogether(): self
     {
         $this->save();
 
@@ -79,7 +90,7 @@ trait EloquentSaveTogether
             }
         }
 
-        return new Collection();
+        return $this;
     }
 
     protected function shouldDelete(string $key)
@@ -96,7 +107,7 @@ trait EloquentSaveTogether
         {
             $model = isset($data['id']) ? $modelClass::find($data['id']) ?? new $modelClass() : new $modelClass();
 
-            if (in_array(self::class, class_uses($modelClass), true))
+            if (in_array(EloquentSaveTogether::class, class_uses($modelClass), true))
             {
                 $model->fillTogether($data);
             }
@@ -117,7 +128,7 @@ trait EloquentSaveTogether
             $model = isset($datas[$requestKey]['id']) ? $modelClass::find($datas[$requestKey]['id']) ?? new $modelClass() : new $modelClass();
             $model->fill($datas[$requestKey]);
 
-            if (in_array(self::class, class_uses($modelClass), true))
+            if (in_array(EloquentSaveTogether::class, class_uses($modelClass), true))
             {
                 $model->fillTogether($datas[$requestKey]);
             }
@@ -152,7 +163,7 @@ trait EloquentSaveTogether
         {
             $modelClass = $this->{$key}()->getRelated();
 
-            if (in_array(self::class, class_uses($modelClass), true))
+            if (in_array(EloquentSaveTogether::class, class_uses($modelClass), true))
             {
                 $sub_item = $this->{$key}()->save($item);
                 $sub_item->saveTogether();
@@ -168,7 +179,7 @@ trait EloquentSaveTogether
     {
         $modelClass = $this->{$key}()->getRelated();
 
-        if (in_array(self::class, class_uses($modelClass), true))
+        if (in_array(EloquentSaveTogether::class, class_uses($modelClass), true))
         {
             $sub_item = $this->{$key}()->save($relation);
             $sub_item->saveTogether();
@@ -181,5 +192,43 @@ trait EloquentSaveTogether
             }
             $this->{$key}()->save($relation);
         }
+    }
+
+    public function getRelatedWithSubRelations()
+    {
+        $relationalFillables = array_values($this->getFillable());
+
+        foreach ($this->together ?? [] as $key => $relation)
+        {
+            if (!is_string($key) || $key === 'children')
+            {
+                continue;
+            }
+
+            $modelClass = $this->{$key}()->getRelated();
+
+            if (in_array(EloquentSaveTogether::class, class_uses($modelClass), true))
+            {
+                $relationalFillables[$key] = $modelClass->getRelatedWithSubRelations();
+            }
+            else
+            {
+                $relationalFillables[$key] = array_values($modelClass->getFillable());
+            }
+        }
+
+        return $relationalFillables;
+    }
+
+    /**
+     * Get the mapped relation class from config or return the original class
+     */
+    protected function getMappedRelationClass(string $relationClass): string
+    {
+        if ($this->relationMappings === null) {
+            $this->relationMappings = config('eloquent-save-together.relation_mappings', []);
+        }
+
+        return $this->relationMappings[$relationClass] ?? $relationClass;
     }
 }
