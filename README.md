@@ -3,8 +3,8 @@
 # Eloquent SaveTogether
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/denizgolbas/eloquent-save-together.svg?style=flat-square)](https://packagist.org/packages/denizgolbas/eloquent-save-together)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/denizgolbas/eloquent-save-together/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/denizgolbas/eloquent-save-together/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/denizgolbas/eloquent-save-together/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/denizgolbas/eloquent-save-together/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/denizgolbas/eloquent-save-together/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/denizgolbas/eloquent-save-together/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/denizgolbas/eloquent-save-together/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/denizgolbas/eloquent-save-together/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/denizgolbas/eloquent-save-together.svg?style=flat-square)](https://packagist.org/packages/denizgolbas/eloquent-save-together)
 
 A powerful Laravel package that allows you to save Eloquent models along with all their relationships in a single operation. Perfect for handling complex nested data structures from API requests or forms.

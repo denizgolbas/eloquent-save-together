@@ -11,7 +11,7 @@
     "authors": [
         {
             "name": "denizgolbas",
-            "email": "denizgolbas@gmail.com",
+            "email": "info@denizgolbas.com",
             "role": "Developer"
         }
     ],
@@ -33,6 +33,11 @@
     "autoload": {
         "psr-4": {
             "Denizgolbas\\EloquentSaveTogether\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Denizgolbas\\EloquentSaveTogether\\Tests\\": "tests/"
         }
     },
     "extra": {

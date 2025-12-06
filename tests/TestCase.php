@@ -3,25 +3,27 @@
 namespace Denizgolbas\EloquentSaveTogether\Tests;
 
 use Denizgolbas\EloquentSaveTogether\EloquentSaveTogetherServiceProvider;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+    use LazilyRefreshDatabase;
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             EloquentSaveTogetherServiceProvider::class,
         ];
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function defineDatabaseMigrations(): void
     {
-        // Setup default database to use sqlite :memory:
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+    }
+
+    protected function defineEnvironment($app): void
+    {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
             'driver' => 'sqlite',
@@ -30,4 +32,3 @@ abstract class TestCase extends OrchestraTestCase
         ]);
     }
 }
-

@@ -2,8 +2,8 @@
 
 namespace Denizgolbas\EloquentSaveTogether;
 
-use Illuminate\Support\ServiceProvider;
 use Denizgolbas\EloquentSaveTogether\Console\Commands\PublishConfig;
+use Illuminate\Support\ServiceProvider;
 
 class EloquentSaveTogetherServiceProvider extends ServiceProvider
 {
